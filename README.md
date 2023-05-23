@@ -61,6 +61,7 @@ NAME:KATHIRVEL.A
 REG NO:212221230047
 ```
 
+
 ```
 import numpy as np
 import matplotlib.pyplot as plt
@@ -69,11 +70,14 @@ from tensorflow.keras.initializers import Initializer
 from tensorflow.keras.layers import Layer
 from tensorflow.keras.initializers import RandomUniform, Initializer, Constant
 ```
+
+
 ```
 def gaussian_rbf(x, landmark, gamma=1):
     return np.exp(-gamma * np.linalg.norm(x - landmark)**2)
-    ```
-    
+```
+
+
 ```
 def end_to_end(X1, X2, ys, mu1, mu2):
     from_1 = [gaussian_rbf(i, mu1) for i in zip(X1, X2)]
@@ -86,9 +90,7 @@ def end_to_end(X1, X2, ys, mu1, mu2):
     plt.ylabel("$X2$", fontsize=15)
     plt.title("Xor: Linearly Inseparable", fontsize=15)
     plt.legend()
-```
 
-```
     plt.subplot(1, 2, 2)
     plt.scatter(from_1[0], from_2[0], label="Class_0")
     plt.scatter(from_1[1], from_2[1], label="Class_1")
@@ -116,16 +118,20 @@ def end_to_end(X1, X2, ys, mu1, mu2):
     print(ys)
     print(f"Weights: {W}")
     return W
-    ```
-    
-    ```
+```
+
+
+
+```
     def predict_matrix(point, weights):
     gaussian_rbf_0 = gaussian_rbf(np.array(point), mu1)
     gaussian_rbf_1 = gaussian_rbf(np.array(point), mu2)
     A = np.array([gaussian_rbf_0, gaussian_rbf_1, 1])
     return np.round(A.dot(weights))
-    ```
-    ```
+```
+
+
+```
 x1 = np.array([0, 0, 1, 1])
 x2 = np.array([0, 1, 0, 1])
 ys = np.array([0, 1, 1, 0])
@@ -137,6 +143,7 @@ print(f"Input:{np.array([0, 1])}, Predicted: {predict_matrix(np.array([0, 1]), w
 print(f"Input:{np.array([1, 0])}, Predicted: {predict_matrix(np.array([1, 0]), w)}")
 print(f"Input:{np.array([1, 1])}, Predicted: {predict_matrix(np.array([1, 1]), w)}")
 ```
+
 ```
 mu1 = np.array([0, 0])
 mu2 = np.array([1, 1])
